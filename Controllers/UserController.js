@@ -34,3 +34,27 @@ exports.register = async (req, res) => {
         })
     }
 }
+
+// login user
+exports.login = async (req, res) => {
+    try {
+        const {email, password} = req.body;
+        if(!email || !password){
+            return res.status(400).send({success:false,message:"Please Provide Email and Password"});
+        }
+        const user = await userServices.loginUserInfo(req.body);
+        // console.log();
+        if(!user){
+            return res.status(400).send({success:false,message:"Invalid Credentials"});
+        }
+        const isMatch = await bcrypt.compare(password, user.password);
+        if(!isMatch){
+            return res.status(400).send({success:false,message:"Provide Correct Password"});
+        }
+         // -----------------Create and assign token-----------------
+         const token = genaretToken({id: user._id.toString()},"7d");
+    res.send({ success: true, message: "Login Successfully", user: { user, token } });
+    } catch (error) {
+        res.status(500).send({ success: false, messages: error?.message });
+    }
+}

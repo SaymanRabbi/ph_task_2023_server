@@ -7,3 +7,13 @@ exports.registerUserInfo = async (usermail) => {
     }
     return null
 }
+
+exports.loginUserInfo = async (usermail) => {
+
+    const {email} = usermail;
+    const user = await User.findOne({email});
+    if (user) {
+        return user
+    }
+    return null
+}
