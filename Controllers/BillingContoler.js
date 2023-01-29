@@ -24,3 +24,11 @@ exports.addBillingControler = async (req, res) => {
         res.status(500).send({ success: false, messages: error?.message });
     }
 }
+
+exports.updateBillingControler = async (req, res) => {
+    try {
+        
+    } catch (error) {
+        res.status(500).send({ success: false, messages: error?.message });
+    }
+}
