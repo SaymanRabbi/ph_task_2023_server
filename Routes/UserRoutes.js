@@ -6,5 +6,8 @@ const userControler = require('../Controllers/UserController');
 // @desc Register user
 // @access Public
 route.post('/registration',userControler.register);
+// @route POST api/login
+// @desc Login user
+// @access Public
 route.post('/login',userControler.login);
 module.exports = route;
