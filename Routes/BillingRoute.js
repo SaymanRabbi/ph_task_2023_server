@@ -11,7 +11,12 @@ route.get('/billing-list',verifyauth,BillingControler.billingListControler)
 // @desc add a Billing
 // @access Private
 route.post('/add-billing',verifyauth,BillingControler.addBillingControler)
-// @route post api/update-billing/:id
-// @desc updating Billing
+// @route patch api/update-billing/:id
+// @desc update Billing
 // @access Private
+route.patch('/update-billing/:id',verifyauth,BillingControler.updateBillingControler)
+// @route delete api/delete-billing/:id
+// @desc delete Billing
+// @access Private
+route.delete('/delete-billing/:id',verifyauth,BillingControler.deleteBillingControler)
 module.exports = route;
