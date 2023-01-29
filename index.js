@@ -4,6 +4,7 @@ const app = express();
 const dotenv = require('dotenv').config();
 const port = process.env.PORT || 5000;
 const colors = require('colors');
+const { ErrorHandeler } = require('./Middleware/ErrorHandeler');
 
 /* ------Middleware----------*/
 app.use(cors());
@@ -34,4 +35,9 @@ app.all("*",(req,res)=>{
     })
 })
 /* ------ Existing nothing----------*/
+/* ------ Global Error Handeler----------*/
+app.use(ErrorHandeler)
+/* ------ Global Error Handeler----------*/
+
+
 
