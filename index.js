@@ -6,13 +6,14 @@ const port = process.env.PORT || 5000;
 const colors = require('colors');
 const { ErrorHandeler } = require('./Middleware/ErrorHandeler');
 const connectDB = require('./MongoConnect');
-
+const UserRoutes = require('./Routes/UserRoutes');
 /* ------Middleware----------*/
 app.use(cors());
 app.use(express.json());
 /* ------Middleware----------*/
 
 /* ------Routes----------*/
+app.use('/api',UserRoutes)
 /* ------Routes----------*/
 /* ------HomeRoutes----------*/
 app.get("/",(req,res)=>{
