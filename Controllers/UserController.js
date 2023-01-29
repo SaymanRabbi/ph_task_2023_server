@@ -2,8 +2,9 @@ const userServices = require('../Services/UserServices');
 const bcrypt = require("bcryptjs");
 const User = require('../Models/UserModel');
 const { genaretToken } = require('../helpers/CreateToken');
-const register = async (req, res) => {
+exports.register = async (req, res) => {
     try {
+        // check if user already exists
         const user = await userServices.registerUserInfo(req.body);
         // user already exists
         if (user) {
