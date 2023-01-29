@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 
 const billingSchema = new mongoose.Schema({
-    fullname: {
+    name: {
         type: String,
         required: [true, 'Name is required'],
         trim: true,
@@ -18,7 +18,7 @@ const billingSchema = new mongoose.Schema({
         required: [true, 'Phone number is required'],
         trim: true,
     },
-    PaidAmount:{
+    paidamount:{
         type: Number,
         required: [true, 'Paid Amount is required'],
         trim: true,

@@ -7,6 +7,7 @@ const colors = require('colors');
 const { ErrorHandeler } = require('./Middleware/ErrorHandeler');
 const connectDB = require('./MongoConnect');
 const UserRoutes = require('./Routes/UserRoutes');
+const BillingRoute = require('./Routes/BillingRoute');
 /* ------Middleware----------*/
 app.use(cors());
 app.use(express.json());
@@ -14,6 +15,7 @@ app.use(express.json());
 
 /* ------Routes----------*/
 app.use('/api',UserRoutes)
+app.use('/api',BillingRoute)
 /* ------Routes----------*/
 /* ------HomeRoutes----------*/
 app.get("/",(req,res)=>{
