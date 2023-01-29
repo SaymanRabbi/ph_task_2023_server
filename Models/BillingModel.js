@@ -10,7 +10,6 @@ const billingSchema = new mongoose.Schema({
     email: {
         type: String,
         required: [true, 'Email is required'],
-        unique: true,
         validate: [validator.isEmail, 'Please provide a valid email'],
     },
     phone: {
