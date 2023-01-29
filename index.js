@@ -5,6 +5,7 @@ const dotenv = require('dotenv').config();
 const port = process.env.PORT || 5000;
 const colors = require('colors');
 const { ErrorHandeler } = require('./Middleware/ErrorHandeler');
+const connectDB = require('./MongoConnect');
 
 /* ------Middleware----------*/
 app.use(cors());
@@ -21,6 +22,9 @@ app.get("/",(req,res)=>{
     })
 })
 /* ------HomeRoutes----------*/
+/* ------ConnectToDB----------*/
+connectDB()
+/* ------ConnectToDB----------*/
 
 /* ------Lisiting Port----------*/
 app.listen(port,()=>{
