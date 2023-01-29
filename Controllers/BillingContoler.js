@@ -5,6 +5,7 @@ const  BillingService  = require('../Services/BillingServices');
 
 exports.billingListControler = async (req, res) => {
     try {
+        const count = await Billing.countDocuments();
         // pagination
         const queries = {}
         if(req.query.page){
@@ -13,9 +14,8 @@ exports.billingListControler = async (req, res) => {
             queries.skip = skip;
             queries.limit = parseInt(limit);
         }
-        const billingList = await Billing.find().skip(queries.skip).limit(queries.limit);
-        results.results = billingList.slice(startIndex, endIndex); 
-        res.status(200).send({ success: true, data: billingList });
+        const billingList = await Billing.find({}).skip(queries.skip).limit(queries.limit); 
+        res.status(200).send({ success: true, data: billingList,count });
     } catch (error) {
         res.status(500).send({ success: false, messages: error?.message });
     }
@@ -27,7 +27,7 @@ exports.addBillingControler = async (req, res) => {
         if(!name || !email || !phone || !paidamount){
             return res.status(400).send({success:false,message:"Please Provide All Fields"});
         }
-        const data = await BillingService.addBillingService(req.body);
+        const data = await Billing.create({ name, email, phone,paidamount });
         res.status(201).send({ success: true, data: data });
     } catch (error) {
         res.status(500).send({ success: false, messages: error?.message });
