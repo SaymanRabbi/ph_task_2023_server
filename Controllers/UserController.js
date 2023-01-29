@@ -5,26 +5,26 @@ const { genaretToken } = require('../helpers/CreateToken');
 exports.register = async (req, res) => {
     try {
         // check if user already exists
-        const user = await userServices.registerUserInfo(req.body);
+        const getuser = await userServices.registerUserInfo(req.body);
         // user already exists
-        if (user) {
+        if (getuser) {
             return res.status(400).send({success:false,message:"User Already Exists"});
         }
         // user does not exist
         const {name, email, password} = req.body;
         const hashPassword = await bcrypt.hash(password, 10);
         // create new user
-        const newUser = await User.create({
+        const user = await User.create({
             name,
             email,
             password: hashPassword
         })
         // Create Token
-        const token = genaretToken({id: newUser._id.toString()},"7d");
-        res.status(201).json({
+        const token = genaretToken({id: user._id.toString()},"7d");
+        res.send({
             message: "User Created Successfully",
             success: true,
-            user:{newUser,token}
+            user:{user,token}
         })
 
     } catch (error) {
@@ -45,11 +45,11 @@ exports.login = async (req, res) => {
         const user = await userServices.loginUserInfo(req.body);
         // console.log();
         if(!user){
-            return res.status(400).send({success:false,message:"Invalid Credentials"});
+            return res.status(403).send({success:false,message:"Invalid Credentials"});
         }
         const isMatch = await bcrypt.compare(password, user.password);
         if(!isMatch){
-            return res.status(400).send({success:false,message:"Provide Correct Password"});
+            return res.status(401).send({success:false,message:"Provide Correct Password"});
         }
          // -----------------Create and assign token-----------------
          const token = genaretToken({id: user._id.toString()},"7d");

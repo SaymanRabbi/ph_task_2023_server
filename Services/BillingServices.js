@@ -6,7 +6,7 @@ exports.addBillingService= async (billingData) => {
     return data;
 }
 exports.deleteBillingService = async (id) => {
-    const billing = await Billing.deleteOne(id)
+    const billing = await Billing.findByIdAndDelete(id);
     if (billing) {
         return billing
     }
