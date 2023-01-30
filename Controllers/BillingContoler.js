@@ -14,6 +14,7 @@ exports.billingListControler = async (req, res) => {
             queries.skip = skip;
             queries.limit = parseInt(limit);
         }
+        console.log(queries);
         const billingList = (await Billing.find({}).skip(queries.skip).limit(queries.limit)).reverse(); 
         res.status(200).send({ success: true, data: billingList,count });
     } catch (error) {
