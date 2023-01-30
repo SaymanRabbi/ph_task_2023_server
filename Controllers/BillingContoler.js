@@ -14,7 +14,7 @@ exports.billingListControler = async (req, res) => {
             queries.skip = skip;
             queries.limit = parseInt(limit);
         }
-        const billingList = await (await Billing.find({}).skip(queries.skip).limit(queries.limit)).reverse(); 
+        const billingList = (await Billing.find({}).skip(queries.skip).limit(queries.limit)).reverse(); 
         res.status(200).send({ success: true, data: billingList,count });
     } catch (error) {
         res.status(500).send({ success: false, messages: error?.message });
@@ -37,11 +37,12 @@ exports.updateBillingControler = async (req, res) => {
     try {
         // console.log(req.params.id,req.body);
         const ID = req.params.id.trim()
-        const { name, email, phone,paidamount } = req.body;
-        const BillingUpdate = await Billing.updateMany({ _id: ID }, { $set: { name, email, phone,paidamount } });
+        const BillingUpdate = await Billing.findByIdAndUpdate(ID, {$set: req.body}, {runValidators: true});
+        // console.log(BillingUpdate);
         if (!BillingUpdate) {
             return res.status(400).send({ success: false, message: "Billing Not Found" });
         }
+        await BillingUpdate.save();
         res.status(200).send({ success: true, data: BillingUpdate });
     } catch (error) {
         res.status(500).send({ success: false, messages: error?.message });
