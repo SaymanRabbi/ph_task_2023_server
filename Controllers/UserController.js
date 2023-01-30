@@ -43,7 +43,6 @@ exports.login = async (req, res) => {
             return res.status(400).send({success:false,message:"Please Provide Email and Password"});
         }
         const user = await userServices.loginUserInfo(req.body);
-        // console.log();
         if(!user){
             return res.status(403).send({success:false,message:"Invalid Credentials"});
         }

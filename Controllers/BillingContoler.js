@@ -35,10 +35,8 @@ exports.addBillingControler = async (req, res) => {
 }
 exports.updateBillingControler = async (req, res) => {
     try {
-        // console.log(req.params.id,req.body);
         const ID = req.params.id.trim()
         const BillingUpdate = await Billing.findByIdAndUpdate(ID, {$set: req.body}, {runValidators: true});
-        // console.log(BillingUpdate);
         if (!BillingUpdate) {
             return res.status(400).send({ success: false, message: "Billing Not Found" });
         }
